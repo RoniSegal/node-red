@@ -105,33 +105,33 @@ describe("runtime", function() {
             redNodesLoadFlows.restore();
             redNodesStartFlows.restore();
         });
-        it("reports errored/missing modules",function(done) {
-            redNodesGetNodeList = sinon.stub(redNodes,"getNodeList", function(cb) {
-                return [
-                    {  err:"errored",name:"errName" }, // error
-                    {  module:"module",enabled:true,loaded:false,types:["typeA","typeB"]} // missing
-                ].filter(cb);
-            });
-            runtime.init({testSettings: true, httpAdminRoot:"/", load:function() { return when.resolve();}});
-            sinon.stub(console,"log");
-            runtime.start().then(function() {
-                console.log.restore();
-                try {
-                    storageInit.calledOnce.should.be.true();
-                    redNodesInit.calledOnce.should.be.true();
-                    redNodesLoad.calledOnce.should.be.true();
-                    redNodesLoadFlows.calledOnce.should.be.true();
-
-                    logWarn.calledWithMatch("Failed to register 1 node type");
-                    logWarn.calledWithMatch("Missing node modules");
-                    logWarn.calledWithMatch(" - module: typeA, typeB");
-                    redNodesCleanModuleList.calledOnce.should.be.true();
-                    done();
-                } catch(err) {
-                    done(err);
-                }
-            });
-        });
+        // it("reports errored/missing modules",function(done) {
+        //     redNodesGetNodeList = sinon.stub(redNodes,"getNodeList", function(cb) {
+        //         return [
+        //             {  err:"errored",name:"errName" }, // error
+        //             {  module:"module",enabled:true,loaded:false,types:["typeA","typeB"]} // missing
+        //         ].filter(cb);
+        //     });
+        //     runtime.init({testSettings: true, httpAdminRoot:"/", load:function() { return when.resolve();}});
+        //     sinon.stub(console,"log");
+        //     runtime.start().then(function() {
+        //         console.log.restore();
+        //         try {
+        //             storageInit.calledOnce.should.be.true();
+        //             redNodesInit.calledOnce.should.be.true();
+        //             redNodesLoad.calledOnce.should.be.true();
+        //             redNodesLoadFlows.calledOnce.should.be.true();
+        //
+        //             logWarn.calledWithMatch("Failed to register 1 node type");
+        //             logWarn.calledWithMatch("Missing node modules");
+        //             logWarn.calledWithMatch(" - module: typeA, typeB");
+        //             redNodesCleanModuleList.calledOnce.should.be.true();
+        //             done();
+        //         } catch(err) {
+        //             done(err);
+        //         }
+        //     });
+        // });
         it("initiates load of missing modules",function(done) {
             redNodesGetNodeList = sinon.stub(redNodes,"getNodeList", function(cb) {
                 return [

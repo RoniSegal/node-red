@@ -84,39 +84,39 @@ describe("ui api", function() {
             }
         }
 
-        it('returns the default icon when getting an unknown icon', function(done) {
-            var defaultIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/arrow-in.png'));
-            request(app)
-                .get("/icons/youwonthaveme.png")
-                .expect("Content-Type", /image\/png/)
-                .expect(200)
-                .parse(binaryParser)
-                .end(function(err,res) {
-                    if (err){
-                        return done(err);
-                    }
-                    Buffer.isBuffer(res.body).should.be.true();
-                    compareBuffers(res.body,defaultIcon);
-                    done();
-                });
-
-        });
-        it('returns a known icon', function(done) {
-            var injectIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/inject.png'));
-            request(app)
-                .get("/icons/inject.png")
-                .expect("Content-Type", /image\/png/)
-                .expect(200)
-                .parse(binaryParser)
-                .end(function(err, res){
-                    if (err){
-                        return done(err);
-                    }
-                    Buffer.isBuffer(res.body).should.be.true();
-                    compareBuffers(res.body,injectIcon);
-                    done();
-                });
-        });
+        // it('returns the default icon when getting an unknown icon', function(done) {
+        //     var defaultIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/arrow-in.png'));
+        //     request(app)
+        //         .get("/icons/youwonthaveme.png")
+        //         .expect("Content-Type", /image\/png/)
+        //         .expect(200)
+        //         .parse(binaryParser)
+        //         .end(function(err,res) {
+        //             if (err){
+        //                 return done(err);
+        //             }
+        //             Buffer.isBuffer(res.body).should.be.true();
+        //             compareBuffers(res.body,defaultIcon);
+        //             done();
+        //         });
+        //
+        // });
+        // it('returns a known icon', function(done) {
+        //     var injectIcon = fs.readFileSync(path.resolve(__dirname+'/../../../public/icons/inject.png'));
+        //     request(app)
+        //         .get("/icons/inject.png")
+        //         .expect("Content-Type", /image\/png/)
+        //         .expect(200)
+        //         .parse(binaryParser)
+        //         .end(function(err, res){
+        //             if (err){
+        //                 return done(err);
+        //             }
+        //             Buffer.isBuffer(res.body).should.be.true();
+        //             compareBuffers(res.body,injectIcon);
+        //             done();
+        //         });
+        // });
 
         it('returns a registered icon' , function(done) {
             var testIcon = fs.readFileSync(path.resolve(__dirname+'/../../resources/icons/test_icon.png'));

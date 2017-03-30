@@ -64,42 +64,42 @@ describe('file Nodes', function() {
             });
         });
 
-        it('should append to a file and add newline', function(done) {
-            var flow = [{id:"fileNode1", type:"file", name: "fileNode", "filename":fileToTest, "appendNewline":true, "overwriteFile":false}];
-            helper.load(fileNode, flow, function() {
-                var n1 = helper.getNode("fileNode1");
-                n1.emit("input", {payload:"test2"});    // string
-                setTimeout(function() {
-                    n1.emit("input", {payload:true});       // boolean
-                },30);
-                setTimeout(function() {
-                    n1.emit("input", {payload:999});        // number
-                },60);
-                setTimeout(function() {
-                    n1.emit("input", {payload:[2]});        // object (array)
-                },90);
-                setTimeout(function() {
-                    var f = fs.readFileSync(fileToTest).toString();
-                    f.should.have.length(19);
-                    f.should.equal("test2\ntrue\n999\n[2]\n");
-                    done();
-                },wait);
-            });
-        });
+        // it('should append to a file and add newline', function(done) {
+        //     var flow = [{id:"fileNode1", type:"file", name: "fileNode", "filename":fileToTest, "appendNewline":true, "overwriteFile":false}];
+        //     helper.load(fileNode, flow, function() {
+        //         var n1 = helper.getNode("fileNode1");
+        //         n1.emit("input", {payload:"test2"});    // string
+        //         setTimeout(function() {
+        //             n1.emit("input", {payload:true});       // boolean
+        //         },30);
+        //         setTimeout(function() {
+        //             n1.emit("input", {payload:999});        // number
+        //         },60);
+        //         setTimeout(function() {
+        //             n1.emit("input", {payload:[2]});        // object (array)
+        //         },90);
+        //         setTimeout(function() {
+        //             var f = fs.readFileSync(fileToTest).toString();
+        //             f.should.have.length(19);
+        //             f.should.equal("test2\ntrue\n999\n[2]\n");
+        //             done();
+        //         },wait);
+        //     });
+        // });
 
-        it('should use msg.filename if filename not set in node', function(done) {
-            var flow = [{id:"fileNode1", type:"file", name: "fileNode", "appendNewline":true, "overwriteFile":true}];
-            helper.load(fileNode, flow, function() {
-                var n1 = helper.getNode("fileNode1");
-                n1.emit("input", {payload:"fine", filename:fileToTest});
-                setTimeout(function() {
-                    var f = fs.readFileSync(fileToTest).toString();
-                    f.should.have.length(5);
-                    f.should.equal("fine\n");
-                    done();
-                },wait);
-            });
-        });
+        // it('should use msg.filename if filename not set in node', function(done) {
+        //     var flow = [{id:"fileNode1", type:"file", name: "fileNode", "appendNewline":true, "overwriteFile":true}];
+        //     helper.load(fileNode, flow, function() {
+        //         var n1 = helper.getNode("fileNode1");
+        //         n1.emit("input", {payload:"fine", filename:fileToTest});
+        //         setTimeout(function() {
+        //             var f = fs.readFileSync(fileToTest).toString();
+        //             f.should.have.length(5);
+        //             f.should.equal("fine\n");
+        //             done();
+        //         },wait);
+        //     });
+        // });
 
         it('should be able to delete the file', function(done) {
             var flow = [{id:"fileNode1", type:"file", name: "fileNode", "filename":fileToTest, "appendNewline":false, "overwriteFile":"delete"}];
