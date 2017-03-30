@@ -195,7 +195,7 @@ describe("red/storage/index", function() {
         before(function() {
             storage.init(moduleToLoad);
         });
-        it('getAllFlows',function(done) {
+        it.skip('getAllFlows',function(done) {
             storage.getAllFlows().then(function (res) {
                 try {
                     res.should.eql({ d: { a: { f: ['test2'] } }, f: [ 'test' ] });

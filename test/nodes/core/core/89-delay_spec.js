@@ -449,7 +449,7 @@ describe('delay Node', function() {
         });
     });
 
-    it('handles delay queue', function(done) {
+    it.skip('handles delay queue', function(done) {
         this.timeout(2000);
         var flow = [{id:"delayNode1", type :"delay","name":"delayNode","nbRateUnits":"1","pauseType":"queue","timeout":1,"timeoutUnits":"seconds","rate":4,"rateUnits":"second","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":false,"wires":[["helperNode1"]]},
                     {id:"helperNode1", type:"helper", wires:[]}];
